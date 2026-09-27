@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lib Downloader</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Скачать главы с Lib-сайтов</h1>
+      <p class="lead">Работает с MangaLib, SlashLib и HentaiLib. Вставьте ссылку на тайтл или на любую его главу, отметьте нужные главы — можно сохранить главы по отдельности или объединить все выбранные главы в один CBZ/PDF.</p>
+    </header>
+
+    <form id="load-form" class="load">
+      <label for="url">Ссылка</label>
+      <div class="row">
+        <input id="url" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://mangalib.me/ru/manga/…" required>
+        <button id="load-btn" type="submit" class="primary">Показать главы</button>
+      </div>
+    </form>
+
+    <p id="status" role="status" aria-live="polite"></p>
+
+    <section id="panel" hidden>
+      <div class="title-row">
+        <h2 id="title"></h2>
+        <span id="count" class="muted"></span>
+      </div>
+
+      <div class="controls">
+        <label id="branch-wrap" class="branch" hidden>
+          <span>Перевод</span>
+          <select id="branch"></select>
+        </label>
+        <div class="quick">
+          <label class="format"><span>Формат</span><select id="format"><option value="cbz">CBZ</option><option value="pdf">PDF</option><option value="both">CBZ + PDF</option></select></label>
+          <label class="format"><span>Сохранение</span><select id="pack"><option value="chapter">Каждая глава отдельно</option><option value="single">Все выбранные в один файл</option></select></label>
+          <button type="button" id="sel-all">Выбрать все</button>
+          <button type="button" id="sel-none">Снять выбор</button>
+        </div>
+      </div>
+      <p class="hint muted">Shift + клик — отметить диапазон глав.</p>
+      <div id="page-capture" class="capture" hidden>
+        <div>
+          <strong>Забрать изображения с открытой страницы</strong>
+          <div class="muted small">Расширение использует вкладку HentaiLib, с которой оно было запущено: прокручивает ридер, ждёт lazy-load и забирает доступные оригинальные изображения.</div>
+        </div>
+        <button id="capture-start" type="button">Забрать изображения</button>
+      </div>
+
+      <div id="chapters" class="chapters" tabindex="-1"></div>
+    </section>
+
+    <section id="progress" hidden aria-live="polite">
+      <div class="progress-head">
+        <span id="current">Готовлюсь…</span>
+        <span id="overall-text" class="muted"></span>
+      </div>
+      <progress id="overall" value="0" max="1"></progress>
+      <ul id="log" class="log"></ul>
+    </section>
+  </main>
+
+  <footer id="bar" class="bar" hidden>
+    <span id="selected">Выбрано: 0</span>
+    <div class="bar-actions">
+      <button id="stop" type="button" hidden>Остановить</button>
+      <button id="start" type="button" class="primary" disabled>Скачать</button>
+    </div>
+  </footer>
+
+  <script src="lib.js"></script>
+  <script src="pdf.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
